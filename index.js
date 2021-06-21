@@ -5,7 +5,6 @@ const bcrypt = require('bcrypt-nodejs');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 
-
 const MongoStore = require('connect-mongo');
 
 const app = express();
@@ -46,7 +45,7 @@ app.get('/', (req, res, next) => {
         req.session.viewCount = 1;
     }
     console.log(req.session);
-    res.send(`<h1> You have visited the page ${req.session.viewCount } number of times.<h1>`)
+    res.send(`<h1> You have visited the page ${ req.session.viewCount } number of times.<h1>`)
 });
 
 const PORT = 6001
