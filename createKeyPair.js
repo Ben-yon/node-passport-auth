@@ -1,6 +1,5 @@
 const crypto = require('crypto');
 const fs = require('fs');
-const path = require('path');
 
 function genKeyPair(){
     //Generate an object where the keys are stored in properties 'privateKey' and 'publicKey'
