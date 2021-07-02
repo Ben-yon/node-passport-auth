@@ -4,8 +4,11 @@ const logger = require('morgan');
 const bcrypt = require('bcrypt-nodejs');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
+const passportLocal = require('passport-local')
+
 
 const MongoStore = require('connect-mongo');
+const passport = require('passport');
 
 const app = express();
 app.use(express.urlencoded({ extended: true}))
@@ -52,3 +55,8 @@ const PORT = 6001
 app.listen(PORT, ()=> {
     console.log(`app is running on ${PORT}`);
 })
+
+require('./config/passport');
+
+app.use(passport.initialize());
+app.use(passport.session());
