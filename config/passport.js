@@ -4,10 +4,10 @@ const LocalStrategy = require('passport-local').Strategy;
 const connection = require('./database');
 
 const User = connection.models.User;
-// const customField = {
-//     usernameField: uname,
-//     passwordField: pword
-// };
+const customFields = {
+    usernameField: 'uname',
+    passwordField: 'pword'
+};
 
 const verifyCallback = (username, password, cb) => {
     User.findOne({username: username})
@@ -27,7 +27,7 @@ const verifyCallback = (username, password, cb) => {
         return cb(err);
     });
 }
-const strategy = new LocalStrategy(verifyCallback)
+const strategy = new LocalStrategy(customFields,verifyCallback)
 
 passport.use(strategy);
 
