@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const passport = require('passport');
-const passwordUtils = require('../lib/passportUtils');
+const genPassword = require('../lib/passportUtils').genPassword;
 const connection = require('../config/database');
 const User = connection.models.User;
 
@@ -14,7 +14,7 @@ const User = connection.models.User;
 // router.post('/login', passport.authenticate('local'), (req, res,next) = {});
 
 router.post('/register', (req, res, next) => {
-    const saltHash = passwordUtils.genPassword(req.body.pword);
+    const saltHash = genPassword(req.body.pword);
 
     const salt = saltHash.salt;
     const hash = saltHash.hash;
