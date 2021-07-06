@@ -1,10 +1,10 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const logger = require('morgan');
-const bcrypt = require('bcrypt-nodejs');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const passportLocal = require('passport-local')
+const routes = require('./routes');
 
 
 const MongoStore = require('connect-mongo');
@@ -41,22 +41,24 @@ app.use(session({
     }
 }));
 
-app.get('/', (req, res, next) => {
-    if (req.session.viewCount){
-        req.session.viewCount = req.session.viewCount + 1;
-    }else{
-        req.session.viewCount = 1;
-    }
-    console.log(req.session);
-    res.send(`<h1> You have visited the page ${ req.session.viewCount } number of times.<h1>`)
-});
+// app.get('/', (req, res, next) => {
+//     if (req.session.viewCount){
+//         req.session.viewCount = req.session.viewCount + 1;
+//     }else{
+//         req.session.viewCount = 1;
+//     }
+//     console.log(req.session);
+//     res.send(`<h1> You have visited the page ${ req.session.viewCount } number of times.<h1>`)
+// });
+
+require('./config/passport');
+
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(routes);
 
 const PORT = 6001
 app.listen(PORT, ()=> {
     console.log(`app is running on ${PORT}`);
 })
 
-require('./config/passport');
-
-app.use(passport.initialize());
-app.use(passport.session());
