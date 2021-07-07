@@ -9,9 +9,8 @@ const User = connection.models.User;
  * --------------------POST ROUTES----------------------
  */
 
-// TODO 
 
-// router.post('/login', passport.authenticate('local'), (req, res,next) = {});
+router.post('/login', passport.authenticate('local',{ failureRedirect: '/login-failure', successRedirect: '/login-success'}));
 
 router.post('/register', (req, res, next) => {
     const saltHash = genPassword(req.body.pword);
@@ -41,7 +40,13 @@ router.get('/', (req, res, next) => {
 })
 
 router.get('/login', (req, res, next) => {
-    res.send('leave a message here');
+
+    const form = '<h1>Login Page</h1><form method="POST" action="/login">\
+    Enter Username:<br><input type="text" name="uname">\
+    <br>Enter Password:<br><input type="password" name="pword">\
+    <br><br><input type="submit" value="Submit"></form>';
+
+    res.send(form);
 })
 
 router.get('/register', (req, res, next) => {
@@ -67,4 +72,11 @@ router.get('/logout', (req,res, next) => {
     res.redirect('/protected-route');
 });
 
+router.get('/login-success', (req, res, next) => {
+    res.send("You are successfully logged in")
+});
+
+router.get('/login-failure', (req, res, next) => {
+    res.send("You are not logged in, please check your credentials and log in again");
+})
 module.exports = router;
