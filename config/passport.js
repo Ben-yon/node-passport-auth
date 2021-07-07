@@ -33,7 +33,7 @@ const strategy = new LocalStrategy(customFields,verifyCallback)
 passport.use(strategy);
 
 passport.serializeUser((user, done) => {
-    done(null, user.id);
+    done(null, user);
 });
 
 passport.deserializeUser((userId, done) => {

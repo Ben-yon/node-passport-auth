@@ -26,20 +26,20 @@ app.use(express.json());
 //     console.log("connected")
 // }
 
-// const sessionStore = new MongoStore({
-//     mongoUrl: dbstring,
-//     collection: 'sessions'
-// });
+const sessionStore = new MongoStore({
+    mongoUrl: process.env.DB_STRING,
+    collection: 'sessions'
+});
 
-// app.use(session({
-//     secret: 'some secret',
-//     resave: false,
-//     saveUninitialized: true,
-//     store: sessionStore,
-//     cookie: {
-//         maxAge: 1000 * 60 * 24 // Equals 1 days
-//     }
-// }));
+app.use(session({
+    secret: process.env.SECRET,
+    resave: false,
+    saveUninitialized: true,
+    store: sessionStore,
+    cookie: {
+        maxAge: 1000 * 60 * 24 // Equals 1 days
+    }
+}));
 
 // app.get('/', (req, res, next) => {
 //     if (req.session.viewCount){
