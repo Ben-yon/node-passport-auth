@@ -9,7 +9,10 @@ const conn = process.env.DB_STRING;
 const connection = mongoose.createConnection(conn, {
     useNewUrlParser: true,
     useUnifiedTopology: true
-})
+});
+if (connection){
+    console.log("connected");
+}
 
 
 const UserSchema = new mongoose.Schema({
