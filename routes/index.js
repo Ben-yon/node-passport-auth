@@ -10,7 +10,7 @@ const User = connection.models.User;
  */
 
 
-router.post('/login', passport.authenticate('local',{ failureRedirect: '/login-failure', successRedirect: 'login-success'}));
+router.post('/login', passport.authenticate('local',{ successRedirect: 'login-success'}));
 
 router.post('/register', (req, res, next) => {
     const saltHash = genPassword(req.body.pword);
