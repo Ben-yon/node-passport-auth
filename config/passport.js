@@ -10,22 +10,22 @@ const customFields = {
     passwordField: 'pword'
 };
 
-const verifyCallback = (username, password, cb) => {
+const verifyCallback = (username, password, done) => {
     User.findOne({username: username})
     .then((user) => {
         if (!user){
-            return cb(null, false)
+            return done(null, false)
         }
 
         const isValid = validPassword(password, user.hash, user.salt);
         if (isValid){
-            return cb(null, user);
+            return done(null, user);
         }else{
-            return cb(null, false);
+            return done(null, false);
         }
     })
     .catch((err) => {
-        return cb(err);
+        return done(err);
     });
 }
 const strategy = new LocalStrategy(customFields,verifyCallback)
